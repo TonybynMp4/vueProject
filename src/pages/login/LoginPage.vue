@@ -19,13 +19,13 @@ import { compareHash } from '@/hash';
         actions: ButtonComponent[];
     }>({
         formStyle: 'transform: translateY(-50%)',
-        formLegend: 'Login',
+        formLegend: 'Connexion',
         fields: [
             { id: 'email', label: 'Email', placeholder: 'Email', type: 'email', required: true },
-            { id: 'password', label: 'Password', placeholder: 'Password', type: 'password', minLength: 8, required: true }
+            { id: 'password', label: 'Mot de Passe', placeholder: 'Password', type: 'password', minLength: 8, required: true }
         ],
         actions: [
-            { id: 'login', label: 'Login' },
+            { id: 'login', label: 'Se connecter', type: 'submit' },
             { id: 'reset', label: 'Reset', type: 'reset' }
         ]
     });

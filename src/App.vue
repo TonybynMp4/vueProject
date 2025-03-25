@@ -10,32 +10,31 @@
 <template>
     <header>
         <h1>
-            User Stories
+			<router-link to="/" style="text-decoration: none; color: inherit; font-weight: bold;">
+				Vetements-nul.com
+			</router-link>
         </h1>
         <ul>
             <li>
-                <router-link class="button" to="/">Home</router-link>
+                <router-link class="button" to="/">Accueil</router-link>
             </li>
             <li v-if="!isLoggedIn">
-                <router-link class="button" to="/register">Register</router-link>
+                <router-link class="button" to="/register">Inscription</router-link>
             </li>
             <li v-if="!isLoggedIn">
-                <router-link class="button" to="/login">Login</router-link>
+                <router-link class="button" to="/login">Connexion</router-link>
             </li>
+			<li>
+				<router-link class="button" to="/cart">Panier</router-link>
+			</li>
             <li v-if="isLoggedIn">
-                <router-link class="button" to="/dashboard">Dashboard</router-link>
-            </li>
-            <li v-if="isLoggedIn">
-                <ButtonComponent :id="'logout'" :label="'Logout'" @click="onClickLogout" />
-            </li>
-            <li>
-                <router-link class="button" to="/cart">Cart</router-link>
+                <ButtonComponent :id="'logout'" :label="'Déconnexion'" @click="onClickLogout" />
             </li>
         </ul>
     </header>
     <router-view></router-view>
     <footer>
-        <p>&copy; User Stories {{new Date().getFullYear()}}</p>
+        <p>&copy; Vetements-nul.com {{new Date().getFullYear()}}</p>
     </footer>
 </template>
 

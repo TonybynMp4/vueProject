@@ -13,7 +13,7 @@
 <template>
     <main>
         <h1>Bienvenue sur ce site ecommerce de fou</h1>
-		<section v-if="!isLoggedIn">
+		<section v-if="!isLoggedIn" class="loginSection">
 			<p>Vous pouvez vous connecter:</p>
 			<router-link class="button" to="/login">Se connecter</router-link>
 			<p>Ou, si ce n'est pas déjà fait, vous inscrire:</p>
@@ -32,8 +32,17 @@
         gap: 1rem;
         align-items: center;
 		width: 80%;
-		margin: 0 auto;
+		margin: 2rem auto;
     }
+
+	.loginSection {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		align-items: center;
+		width: 100%;
+		margin: 2rem auto;
+	}
 
 	.productList {
 		display: flex;
