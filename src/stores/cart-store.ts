@@ -1,47 +1,62 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
-import type { localUser } from '@/types';
+import type { cartProduct, Product } from '@/types';
 
-const useAuthStore = defineStore('auth', () => {
-	const user = ref<localUser | null>(JSON.parse(localStorage.getItem('user') || 'null'));
-	const router = useRouter();
+const useCartStore = defineStore('cart', () => {
+	const cart = ref<cartProduct[]>(JSON.parse(localStorage.getItem('cart') || '[]'));
 
-	function setUser(newUser: localUser | null) {
-		user.value = newUser === null ? null : {
-			id: newUser.id,
-			email: newUser.email
-		};
+	const setCart = (newCart: cartProduct[]) => {
+		cart.value = newCart;
+		localStorage.setItem('cart', JSON.stringify(cart.value));
+		return cart;
+	};
 
-		localStorage.setItem('user', JSON.stringify(user.value));
-		return user;
-	}
-	const getUser = computed(() => user.value);
+	const getCart = computed(() => cart.value);
 
-	async function login(user: localUser) {
-        setUser(user);
-
-        return user;
-	}
-
-	function logout() {
-		setUser(null);
-		localStorage.removeItem('user');
-
-		if (getUser.value === null) {
-			router.push('/login');
-			return true;
+	const addToCart = (product: Product) => {
+		const existingProduct = cart.value.find((item: cartProduct) => item.id === product.id);
+		if (existingProduct) {
+			existingProduct.quantity += 1;
+		} else {
+			const newProduct: cartProduct = {
+				...product,
+				quantity: 1
+			};
+			cart.value.push(newProduct);
 		}
+		localStorage.setItem('cart', JSON.stringify(cart.value));
+	}
 
-		return false;
+	const removeFromCart = (productId: number) => {
+		cart.value = cart.value.filter((product: cartProduct) => product.id !== productId);
+		localStorage.setItem('cart', JSON.stringify(cart.value));
+	};
+
+	const clearCart = () => {
+		cart.value = [];
+		localStorage.removeItem('cart');
+	};
+
+	const updateProductQuantity = (productId: number, quantity: number) => {
+		const product = cart.value.find((item: cartProduct) => item.id === productId);
+		if (product) {
+			product.quantity = quantity;
+			if (product.quantity <= 0) {
+				removeFromCart(productId);
+			} else {
+				localStorage.setItem('cart', JSON.stringify(cart.value));
+			}
+		}
 	}
 
 	return {
-		setUser,
-		getUser,
-		login,
-		logout
+		setCart,
+		getCart,
+		addToCart,
+		removeFromCart,
+		clearCart,
+		updateProductQuantity
 	};
 });
 
-export default useAuthStore;
+export default useCartStore;

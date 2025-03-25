@@ -12,8 +12,8 @@ const useDbStore = defineStore('fakeDb', () => {
     const products = ref<Product[]>(
         JSON.parse(localStorage.getItem('products') || 'null') ||
         [
-            { id: 1, name: 'Awesome T-Shirt' },
-            { id: 2, name: 'Cool Mug' }
+            { id: 1, name: 'Awesome T-Shirt', price: 19.99 },
+            { id: 2, name: 'Cool Mug', price: 9.99 },
         ]
     );
 
@@ -38,7 +38,7 @@ const useDbStore = defineStore('fakeDb', () => {
     }
 
     const getProducts = computed(() => products.value);
-    const addProduct = (newProduct: { name: string }) => {
+    const addProduct = (newProduct: { name: string, price: number}) => {
         const newId = products.value.length + 1;
         products.value.push({ id: newId, ...newProduct });
         localStorage.setItem('products', JSON.stringify(products.value));
