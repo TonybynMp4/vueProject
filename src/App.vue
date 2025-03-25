@@ -1,3 +1,12 @@
+<script setup lang="ts">
+    import { computed } from 'vue';
+    import useAuthStore from './stores/auth-store';
+    import ButtonComponent from './components/ButtonComponent.vue';
+    const authStore = useAuthStore();
+    const isLoggedIn = computed(() => authStore.getUser !== null);
+    const onClickLogout = () => authStore.logout();
+</script>
+
 <template>
     <header>
         <h1>
@@ -29,15 +38,6 @@
         <p>&copy; User Stories {{new Date().getFullYear()}}</p>
     </footer>
 </template>
-
-<script setup lang="ts">
-    import { computed } from 'vue';
-    import useAuthStore from './stores/auth-store';
-    import ButtonComponent from './components/ButtonComponent.vue';
-    const authStore = useAuthStore();
-    const isLoggedIn = computed(() => authStore.getUser !== null);
-    const onClickLogout = () => authStore.logout();
-</script>
 
 <style>
     header {
