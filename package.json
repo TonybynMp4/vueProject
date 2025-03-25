@@ -4,7 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite --mode development",
+        "dev": "npm i && vite --mode development",
         "build": "npm i && vue-tsc -b && vite build",
         "preview": "vite preview",
         "i": "rm -rf node_modules && npm i"
