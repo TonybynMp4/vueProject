@@ -26,6 +26,10 @@ type ButtonComponent = {
     onClick?: (event: Event) => void;
 };
 
+type ProductComponent = {
+	product: Product;
+};
+
 interface User extends localUser {
    password: string;
 }
@@ -38,13 +42,20 @@ interface localUser {
 interface Product {
     id: number;
     name: string;
+	price: number;
+}
+
+interface cartProduct extends Product {
+	quantity: number;
 }
 
 export type {
+	ProductComponent,
     FormComponent,
     FieldComponent,
     ButtonComponent,
     User,
     Product,
+	cartProduct,
     localUser
 }
